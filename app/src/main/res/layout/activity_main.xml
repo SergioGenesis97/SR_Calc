@@ -63,6 +63,17 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6">
 
         <Button
+            android:id="@+id/btnLimpiar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:text="CE"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            app:iconPadding="8dp" />
+
+        <Button
             android:id="@+id/btnMult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
