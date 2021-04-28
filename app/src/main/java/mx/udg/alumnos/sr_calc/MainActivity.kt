@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     var operacion = ""
     var operacionPendiente = false
+    var existeResult = false
 
     //Btn Numericos
     lateinit var btn0:Button
@@ -93,36 +94,141 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v!!.id){ // !! Se usa para indicar que no es nulo, a fuerzas se le va a dar clic
             R.id.btn0->{ //Que hacer cuando se le da click al boton #1
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("0")
             }
             R.id.btn1->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("1")
             }
             R.id.btn2->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("2")
             }
             R.id.btn3->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("3")
             }
             R.id.btn4->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("4")
             }
             R.id.btn5->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("5")
             }
             R.id.btn6->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("6")
             }
             R.id.btn7->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("7")
             }
             R.id.btn8->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("8")
             }
             R.id.btn9->{
+                if (existeResult){
+                    limpiarPantalla()
+                }
                 etVisor.append("9")
+            }
+            R.id.btnLimpiar->{
+                limpiarPantalla()
+            }
+            R.id.btnSum->{
+                if (!operacionPendiente){
+                    operacion = "suma"
+                    etVisor.append("+")
+                    operacionPendiente = true
+                }
+            }
+            R.id.btnRes->{
+                if (!operacionPendiente){
+                    operacion = "resta"
+                    etVisor.append("-")
+                    operacionPendiente = true
+                }
+            }
+            R.id.btnMult->{
+                if (!operacionPendiente){
+                    operacion = "multiplicacion"
+                    etVisor.append("*")
+                    operacionPendiente = true
+                }
+            }
+            R.id.btnDiv->{
+                if (!operacionPendiente){
+                    operacion = "div"
+                    etVisor.append("/")
+                    operacionPendiente = true
+                }
+            }
+            R.id.btnIgual->{
+                if (operacionPendiente){
+                    val textoOperacion = etVisor.text.toString()
+
+                    var delimitador = ""
+                    when (operacion){
+                        "suma" -> delimitador = "+"
+                        "resta" -> delimitador = "-"
+                        "multiplicacion" -> delimitador = "*"
+                        "div" -> delimitador = "/"
+                    }
+                    val operandos = textoOperacion.split(delimitador)
+
+                    val operando1 = operandos[0].toDouble()
+                    val operando2 = operandos[1].toDouble()
+
+                    var result = 0.00
+
+                    when (operacion){
+                        "suma"->{
+                            result = operando1 + operando2
+                        }
+                        "resta"->{
+                            result = operando1 - operando2
+                        }
+                        "multiplicacion"->{
+                            result = operando1 * operando2
+                        }
+                        "div"->{
+                            result = operando1 / operando2
+                        }
+
+                    }
+
+                    etVisor.setText("${result}")
+                    existeResult = true
+                }
             }
 
         }
+    }
+
+    fun limpiarPantalla(){
+        etVisor.setText("")
+        operacionPendiente = false
+        existeResult = false
     }
 }
